@@ -1,0 +1,26 @@
+<div class="dashboard">
+  <div class="title-section">
+    <div class="gradient-title">
+      <span class="title-icon">⛅</span>
+      Прогноз<span style="font-weight: 300;">погоды</span>
+    </div>
+  </div>
+
+  <app-search (cityPicked)="onCitySelected($event)"></app-search>
+
+  <app-map 
+    [citiesCatalog]="cityList" 
+    (cityPicked)="onCitySelected($event)">
+  </app-map>
+
+  <div class="footer-note">
+    Данные: Open-Meteo
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="selectedCity" (click)="dismissModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <button class="close-modal" (click)="dismissModal()">✕</button>
+    <app-weather [cityData]="selectedCity"></app-weather>
+  </div>
+</div>

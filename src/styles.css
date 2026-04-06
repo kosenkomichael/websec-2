@@ -1,0 +1,33 @@
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3a5a8c #0f1629;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0f1629;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #3a5a8c;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #5a7ab0;
+}
+
+*:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(90, 150, 220, 0.5);
+}
+
+body {
+  background: radial-gradient(circle at 20% 30%, #0a0f1e, #05070f);
+  color: #eef5ff;
+}
