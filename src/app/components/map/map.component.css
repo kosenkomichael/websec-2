@@ -1,0 +1,23 @@
+.map-stage {
+  width: 100%;
+  height: 500px;
+  border-radius: 32px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(70, 130, 200, 0.4);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s;
+  z-index: 1;
+}
+
+.map-stage:hover {
+  border-color: rgba(90, 160, 240, 0.7);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 700px) {
+  .map-stage { height: 400px; }
+}
+@media (max-width: 480px) {
+  .map-stage { height: 340px; }
+}
