@@ -1,0 +1,20 @@
+<div class="search-panel">
+  <input
+    type="text"
+    class="search-input"
+    [(ngModel)]="queryText"
+    (input)="onSearchInput()"
+    placeholder="Поиск: Москва, Казань, Новосибирск..."
+    autocomplete="off"
+  />
+  <div class="results-drop" [class.open]="showDropdown">
+    <div
+      *ngFor="let item of suggestedCities"
+      class="result-row"
+      (click)="selectCity(item)"
+    >
+      <span class="city-main">{{ item.name }}</span>
+      <span class="city-pop">{{ formatPop(item.population) }}</span>
+    </div>
+  </div>
+</div>
