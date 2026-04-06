@@ -1,0 +1,60 @@
+<div class="weather-pulse" *ngIf="cityData">
+  <div *ngIf="isBusy" class="loader-ring">
+    <div>Загрузка атмосферных данных...</div>
+  </div>
+
+  <div *ngIf="hasErrorFlag" class="error-message">
+    <div>Не удалось получить прогноз</div>
+  </div>
+
+  <div *ngIf="!isBusy && !hasErrorFlag && weatherBundle">
+    <div class="current-glass">
+      <div class="city-head">{{ cityData.name }}</div>
+      <div class="pop-tag">🏙️ {{ formatPop(cityData.population) }}</div>
+
+      <div class="temp-giant">{{ formatTemp(weatherBundle.current.temperature_2m) }}°</div>
+      <div class="weather-tag">
+        {{ getWeatherPhrase(weatherBundle.current.weathercode) }}
+        {{ getWeatherSymbol(weatherBundle.current.weathercode) }}
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric-badge">
+          <div class="metric-label">Осадки</div>
+          <div class="metric-number">{{ weatherBundle.current.precipitation?.toFixed(1) || 0 }}<span style="font-size:12px"> мм</span></div>
+        </div>
+        <div class="metric-badge">
+          <div class="metric-label">Ветер</div>
+          <div class="metric-number">{{ Math.round(weatherBundle.current.wind_speed_10m) }}<span style="font-size:12px"> км/ч</span></div>
+        </div>
+        <div class="metric-badge">
+          <div class="metric-label">Влажность</div>
+          <div class="metric-number">{{ weatherBundle.current.relative_humidity_2m || '—' }}<span style="font-size:12px"> %</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toggle-group">
+      <button class="toggle-btn" [class.active]="activeMetric === 'temp'" (click)="setMetric('temp')">🌡️ Температура</button>
+      <button class="toggle-btn" [class.active]="activeMetric === 'rain'" (click)="setMetric('rain')">💧 Осадки</button>
+    </div>
+
+    <div class="chart-frame" *ngIf="weatherBundle.daily">
+      <canvas #weatherCanvas></canvas>
+    </div>
+
+    <div class="week-list">
+      <div class="day-card" *ngFor="let day of weatherBundle.daily.time; let idx = index">
+        <div class="day-icon">{{ getWeatherSymbol(weatherBundle.daily.weathercode[idx]) }}</div>
+        <div class="day-name">{{ getDayLabel(day, idx === 0) }}</div>
+        <div class="day-temp-high">{{ formatTemp(weatherBundle.daily.temperature_2m_max[idx]) }}°</div>
+        <div class="day-temp-low">{{ formatTemp(weatherBundle.daily.temperature_2m_min[idx]) }}°</div>
+        <div class="precip-value">💧 {{ weatherBundle.daily.precipitation_sum[idx]?.toFixed(1) || 0 }} мм</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!cityData" class="empty-hint">
+  Выберите город на карте или через поиск
+</div>
